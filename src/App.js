@@ -4,15 +4,14 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import { CartProvider } from "react-use-cart";
+import ItemListContainer from "./components/ItemListContainer";
 
 function App() {
   return (
     <div>
       <NavBar/>
-      <CartProvider>
-        <Home/>
-        <Cart/>
-      </CartProvider>
+      <ItemListContainer greeting="Bienvenido!"/>
+      
     </div>
   );
 }
