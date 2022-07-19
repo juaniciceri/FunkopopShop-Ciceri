@@ -13,6 +13,7 @@ const  ItemCard= (props) => {
                            <h5 class="card-title">$ {props.price}</h5>
                            <p class="card-text">{props.desc}</p>
                            <button class="btn btn-success" onClick={() =>addItem(props.item)}>Añadir al carrito</button>
+                           <button class="btn btn-info">Mirar detallles</button>
                     </div>
             </div>
         </div>

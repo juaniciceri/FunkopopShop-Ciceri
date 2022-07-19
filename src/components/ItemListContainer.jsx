@@ -1,65 +1,33 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ItemList from "./ItemList";
-import img1 from '../img/img1.png';
-import img2 from '../img/img2.jpg';
-import img3 from '../img/img3.jpg';
+import Data from "./Data";
+import { useParams } from "react-router-dom";
 
+const ItemListContainer = () => {
+  const { name } = useParams();
+  console.log(name);
+  const [items, setItems] = useState([]);
+  const promise = new Promise((resolve) => {
+    setTimeout(() => resolve(Data), 2000);
+  });
 
-function ItemListCointainer (props) {
-    const ItemsDATABASE = [
-        {
-            id:1,
-            title: 'Doctor Octopus',
-            img:"img1.",
-            desc:'',
-            price: 8.500,
-        },
-        {
-            id:2,
-            title: 'Avenngers Hulk',
-            img:"img2",
-            desc:'',
-            price: 7.780,
-        },
-        {
-            id:3,
-            title: 'IronMan',
-            img:"img3",
-            desc:'',
-            price: 7.300,
-        },
-    ];
-
-    let [items, setItems]= useState([]);
-
-    console.log("%c Render ItemListContainer", "color: green");
-    console.log(items);
-
-
-    useEffect( 
-        ()=>{
-            let promiseItems = new Promise((resolve, reject) => {
-            setTimeout(
-                ()=> {
-                    resolve(ItemsDATABASE);
-                },
-            2000);
-        });
-        promiseItems.then(
-            (respuesta)=> {
-                setItems(ItemsDATABASE);
-            }
-        ).catch(
-            (errorMsg) => console.error(errorMsg)
-        )
-    },
-        []
-    )
-
-
-return (
-    <ItemList items={items}/>
-);
+  useEffect(() => {
+    promise.then((res) => {
+      const products = res;
+      if (name) {
+        setItems(products.filter((product) => product.category == name));
+      } else {
+        setItems(products);
+      }
+    });
+  }, [name]);
+  return (
+    <>
+      <div className="mt-5">
+        <ItemList items={items} />
+      </div>
+    </>
+  );
 };
 
-export default ItemListCointainer;
+export default ItemListContainer;
